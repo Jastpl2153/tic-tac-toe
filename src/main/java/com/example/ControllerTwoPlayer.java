@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class ControllerTwoPlayer implements Initializable {
     @FXML
     private Button button1;
 

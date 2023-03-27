@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/main.fxml")));
             stage.setTitle("Tic-Tac-Toe");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
