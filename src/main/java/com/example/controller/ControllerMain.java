@@ -1,4 +1,4 @@
-package com.example;
+package com.example.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,11 +35,20 @@ public class ControllerMain implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
     @FXML
-    void playAI(ActionEvent event) {
-
+    void playAI(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample.fxml"));
+        ControllerAI controllerAI = new ControllerAI();
+        loader.setController(controllerAI);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }
