@@ -6,23 +6,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.ControllerMain">
-    <SplitPane dividerPositions="0.23644578313253015" layoutX="70.0" layoutY="55.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <AnchorPane maxHeight="100.0" minHeight="100.0" minWidth="0.0" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to left, #61D8DE, #E839E6);">
-            <Label alignment="CENTER" layoutX="87.0" layoutY="14.0" text="Tic-Tac-Toe" textAlignment="CENTER" textFill="#fcf9f9" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <font>
-               <Font name="Bernard MT Condensed" size="40.0" />
-            </font></Label>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.controller.ControllerMain">
+    <SplitPane dividerPositions="0.23644578313253015" layoutX="70.0" layoutY="55.0" orientation="VERTICAL"
+               prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane maxHeight="100.0" minHeight="100.0" minWidth="0.0" prefHeight="100.0" prefWidth="300.0"
+                    style="-fx-background-color: linear-gradient(to left, #61D8DE, #E839E6);">
+            <Label alignment="CENTER" layoutX="87.0" layoutY="14.0" text="Tic-Tac-Toe" textAlignment="CENTER"
+                   textFill="#fcf9f9" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <font>
+                    <Font name="Bernard MT Condensed" size="40.0"/>
+                </font>
+            </Label>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0">
-            <Button fx:id="but1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#playTwoPlayer" prefHeight="50.0" prefWidth="290.0" text="2 игрока">
+            <Button fx:id="but1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#playTwoPlayer"
+                    prefHeight="50.0" prefWidth="290.0" text="2 игрока">
                 <font>
-                    <Font name="Agency FB" size="18.0" />
+                    <Font name="Agency FB" size="18.0"/>
                 </font>
             </Button>
-            <Button fx:id="but2" layoutX="4.0" layoutY="71.0" mnemonicParsing="false" onAction="#playAI" prefHeight="50.0" prefWidth="290.0" text="Игра с компьютером">
+            <Button fx:id="but2" layoutX="4.0" layoutY="71.0" mnemonicParsing="false" onAction="#playAI"
+                    prefHeight="50.0" prefWidth="290.0" text="Игра с компьютером">
                 <font>
-                    <Font name="Agency FB" size="18.0" />
+                    <Font name="Agency FB" size="18.0"/>
                 </font>
             </Button>
         </AnchorPane>
