@@ -14,6 +14,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ControllerAI implements Initializable {
+    private final String playerChoice;
+    private final String aiChoice;
     Random random = new Random();
     ArrayList<Button> buttons;
     AdversarialSearch ticTacToeAI = new AdversarialSearch();
@@ -39,6 +41,11 @@ public class ControllerAI implements Initializable {
     private Button button9;
     @FXML
     private Label message;
+
+    public ControllerAI(String playerChoice) {
+        this.playerChoice = playerChoice;
+        aiChoice = playerChoice.equals("X") ? "O" : "X";
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,7 +74,7 @@ public class ControllerAI implements Initializable {
 
     private void setupButton(Button button) {
         button.setOnMouseClicked(mouseEvent -> {
-            button.setText("O");
+            button.setText(playerChoice);
             button.setDisable(true);
             makeAIMove();
             checkIfGameIsOver();
@@ -80,7 +87,7 @@ public class ControllerAI implements Initializable {
     }
 
     private void pickButton(int index) {
-        buttons.get(index).setText("X");
+        buttons.get(index).setText(aiChoice);
         buttons.get(index).setDisable(true);
     }
 
@@ -108,10 +115,10 @@ public class ControllerAI implements Initializable {
                 default -> null;
             };
 
-            if (line.equals("XXX")) {
+            if ((line.equals("XXX") && aiChoice.equals("X")) || (line.equals("OOO") && aiChoice.equals("O"))) {
                 message.setText("AI won!");
                 buttons.forEach(button -> button.setDisable(true));
-            } else if (line.equals("OOO")) {
+            } else if ((line.equals("XXX") && playerChoice.equals("X")) || (line.equals("OOO") && playerChoice.equals("O"))) {
                 message.setText("You won!");
                 buttons.forEach(button -> button.setDisable(true));
             }

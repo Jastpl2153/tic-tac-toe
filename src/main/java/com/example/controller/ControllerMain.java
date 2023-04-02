@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,14 +42,12 @@ public class ControllerMain implements Initializable {
 
     @FXML
     void playAI(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample.fxml"));
-        ControllerAI controllerAI = new ControllerAI();
-        loader.setController(controllerAI);
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        FXMLLoader loaderChoice = new FXMLLoader(getClass().getResource("/choice.fxml"));
+        Parent choiceWindow = loaderChoice.load();
+        Stage stageChoice = new Stage();
+        stageChoice.setScene(new Scene(choiceWindow));
+        stageChoice.setResizable(false);
+        stageChoice.initModality(Modality.APPLICATION_MODAL);
+        stageChoice.showAndWait();
     }
 }
