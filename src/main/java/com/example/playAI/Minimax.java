@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class AdversarialSearch {
+public class Minimax {
     public int minimax(State state) {
         ArrayList<State> possibleMoves = generatePossibleMoves(state);
         ArrayList<Integer> movesList = new ArrayList<>();

@@ -10,4 +10,12 @@ public class Style {
             button.getStyleClass().add("button-o");
         }
     }
+
+    public void resetChoice(Button button) {
+        button.getStyleClass().removeAll("button-o", "button-x");
+    }
+
+    public void setButtonHoverDisabled(Button button) {
+        button.getStyleClass().addAll("hover","disabled");
+    }
 }

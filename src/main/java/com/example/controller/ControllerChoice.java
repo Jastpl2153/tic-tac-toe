@@ -11,18 +11,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 public class ControllerChoice {
     public void getChoiceX(ActionEvent event) throws IOException {
-        showGameWindow("X");
+        showGameWindow("X", "O");
         closeWindow(event);
     }
 
     public void getChoiceO(ActionEvent event) throws IOException {
-        showGameWindow("O");
+        showGameWindow("O", "X");
         closeWindow(event);
     }
 
-    private void showGameWindow(String playerType) throws IOException {
+    private void showGameWindow(String playerType, String aiType) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample.fxml"));
-        ControllerAI controllerAI = new ControllerAI(playerType);
+        ControllerAI controllerAI = new ControllerAI(playerType, aiType);
         loader.setController(controllerAI);
         Parent root = loader.load();
         Scene scene = new Scene(root);

@@ -12,38 +12,13 @@ import java.util.ResourceBundle;
 
 public class ControllerTwoPlayer implements Initializable {
     @FXML
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    @FXML
     private Button restart;
-    @FXML
-    private Button button1;
-
-    @FXML
-    private Button button2;
-
-    @FXML
-    private Button button3;
-
-    @FXML
-    private Button button4;
-
-    @FXML
-    private Button button5;
-
-    @FXML
-    private Button button6;
-
-    @FXML
-    private Button button7;
-
-    @FXML
-    private Button button8;
-
-    @FXML
-    private Button button9;
-
     @FXML
     private Label message;
     private int playerTurn = 0;
-    ArrayList<Button> buttons;
+    private ArrayList<Button> buttons;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
