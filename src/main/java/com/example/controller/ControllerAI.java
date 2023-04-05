@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.style.Style;
 import com.example.playAI.AdversarialSearch;
 import com.example.playAI.State;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ControllerAI implements Initializable {
+    private Style style;
     private final String playerChoice;
     private final String aiChoice;
     Random random = new Random();
@@ -45,6 +47,7 @@ public class ControllerAI implements Initializable {
     public ControllerAI(String playerChoice) {
         this.playerChoice = playerChoice;
         aiChoice = playerChoice.equals("X") ? "O" : "X";
+        style = new Style();
     }
 
     @Override
@@ -52,7 +55,11 @@ public class ControllerAI implements Initializable {
         buttons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4,
                 button5, button6, button7, button8, button9));
 
+        restart.getStyleClass().add("hov");
+
         buttons.forEach(button -> {
+            button.getStyleClass().add("hov");
+            button.getStyleClass().add("button");
             setupButton(button);
             button.setFocusTraversable(false);
         });
@@ -70,11 +77,14 @@ public class ControllerAI implements Initializable {
     public void resetButton(Button button) {
         button.setDisable(false);
         button.setText("");
+        button.getStyleClass().removeAll("button-o", "button-x");
     }
 
     private void setupButton(Button button) {
         button.setOnMouseClicked(mouseEvent -> {
             button.setText(playerChoice);
+            style.setButtonStyle(button, playerChoice);
+
             button.setDisable(true);
             makeAIMove();
             checkIfGameIsOver();
@@ -88,6 +98,7 @@ public class ControllerAI implements Initializable {
 
     private void pickButton(int index) {
         buttons.get(index).setText(aiChoice);
+        style.setButtonStyle(buttons.get(index), aiChoice);
         buttons.get(index).setDisable(true);
     }
 
