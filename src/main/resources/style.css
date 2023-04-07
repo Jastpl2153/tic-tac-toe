@@ -16,3 +16,8 @@
   -fx-scale-y: 1.08;
   -fx-translate-x: -2px;
 }
+
+.dropshadow:hover{
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 30, 0, 0, 3);
+}
