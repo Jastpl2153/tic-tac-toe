@@ -8,4 +8,6 @@ module TicTacToe {
     opens com.example.controller to javafx.fxml;
     exports com.example.style;
     opens com.example.style to javafx.fxml;
+    exports com.example.controller.logic;
+    opens com.example.controller.logic to javafx.fxml;
 }
