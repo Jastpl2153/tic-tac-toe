@@ -26,6 +26,8 @@ public class ControllerMain implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         but1.setFocusTraversable(false);
         but2.setFocusTraversable(false);
+        but1.getStyleClass().addAll("hover", "dropshadow");
+        but2.getStyleClass().addAll("hover", "dropshadow");
     }
 
     @FXML
