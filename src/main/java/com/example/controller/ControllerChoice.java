@@ -1,28 +1,28 @@
 package com.example.controller;
 
+import com.example.controller.logic.ControllerAI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
 
 import java.io.IOException;
 public class ControllerChoice {
     public void getChoiceX(ActionEvent event) throws IOException {
-        showGameWindow("X");
+        showGameWindow("X", "O");
         closeWindow(event);
     }
 
     public void getChoiceO(ActionEvent event) throws IOException {
-        showGameWindow("O");
+        showGameWindow("O", "X");
         closeWindow(event);
     }
 
-    private void showGameWindow(String playerType) throws IOException {
+    private void showGameWindow(String playerType, String aiType) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample.fxml"));
-        ControllerAI controllerAI = new ControllerAI(playerType);
+        ControllerAI controllerAI = new ControllerAI(playerType, aiType);
         loader.setController(controllerAI);
         Parent root = loader.load();
         Scene scene = new Scene(root);
