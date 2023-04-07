@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-    <SplitPane dividerPositions="0.23644578313253015" layoutX="70.0" layoutY="55.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: -fx-background-color: red;;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane dividerPositions="0.23644578313253015" layoutX="70.0" layoutY="55.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane maxHeight="100.0" minHeight="100.0" minWidth="0.0" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to left, #FC466B, #3F5EFB);">
             <Button fx:id="restart" layoutX="99.0" layoutY="62.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0, 50, 50, 0.6), 5, 3, 0, 0); -fx-background-color: linear-gradient(to left, #61D8DE, #E839E6);" stylesheets="@style.css" text="New start game" textFill="#fffafa" />
             <Label fx:id="message" alignment="CENTER" layoutX="87.0" layoutY="14.0" text="Tic-Tac-Toe" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
