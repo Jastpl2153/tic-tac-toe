@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.style.Style;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,21 +13,24 @@ import java.util.ResourceBundle;
 
 public class ControllerTwoPlayer implements Initializable {
     @FXML
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
-    @FXML
     private Button restart;
     @FXML
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    @FXML
     private Label message;
+
     private int playerTurn = 0;
     private ArrayList<Button> buttons;
 
+    private Style style = new Style();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        buttons = new ArrayList<>
-                (Arrays.asList(button1, button2, button3, button4,
+        buttons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4,
                         button5, button6, button7, button8, button9));
-
+        restart.getStyleClass().add("hover");
         buttons.forEach(button -> {
+            style.setButtonHoverDisabled(button);
             setupButton(button);
             button.setFocusTraversable(false);
         });
@@ -44,11 +48,13 @@ public class ControllerTwoPlayer implements Initializable {
     public void resetButton (Button button) {
         button.setText("");
         button.setDisable(false);
+        style.resetChoice(button);
     }
 
     private void setupButton(Button button) {
         button.setOnMouseClicked(mouseEvent -> {
             setPlayerSymbol(button);
+            style.setButtonStyle(button, button.getText());
             button.setDisable(true);
             checkIfGameIsOver();
         });
@@ -64,12 +70,12 @@ public class ControllerTwoPlayer implements Initializable {
         }
     }
 
-    public void checkIfGameIsOver(){
-        for (int i = 0; i < 8; i++) {
-            String line = switch (i) {
+    private void checkIfGameIsOver() {
+        for (int a = 0; a < 8; a++) {
+            String line = switch (a) {
                 case 0 -> button1.getText() + button2.getText() + button3.getText();
                 case 1 -> button4.getText() + button5.getText() + button6.getText();
-                case 2 -> button9.getText() + button8.getText() + button9.getText();
+                case 2 -> button7.getText() + button8.getText() + button9.getText();
                 case 3 -> button1.getText() + button5.getText() + button9.getText();
                 case 4 -> button3.getText() + button5.getText() + button7.getText();
                 case 5 -> button1.getText() + button4.getText() + button7.getText();
@@ -78,13 +84,43 @@ public class ControllerTwoPlayer implements Initializable {
                 default -> null;
             };
 
-            if (line.equals("XXX")) {
-                message.setText("Win X");
-                buttons.forEach(button -> button.setDisable(true));
-            } else if (line.equals("OOO")) {
-                message.setText("Win O");
-                buttons.forEach(button -> button.setDisable(true));
-            }
+            checkLine(line);
         }
     }
+
+    private void checkLine(String line) {
+        if (line.equals("XXX")) {
+            gameOver("Win X!");
+        } else if (line.equals("OOO")) {
+            gameOver("Win O!");
+        }
+    }
+
+    private void gameOver(String messageText) {
+        message.setText(messageText);
+        buttons.forEach(button -> button.setDisable(true));
+    }
+//    public void checkIfGameIsOver(){
+//        for (int i = 0; i < 8; i++) {
+//            String line = switch (i) {
+//                case 0 -> button1.getText() + button2.getText() + button3.getText();
+//                case 1 -> button4.getText() + button5.getText() + button6.getText();
+//                case 2 -> button9.getText() + button8.getText() + button9.getText();
+//                case 3 -> button1.getText() + button5.getText() + button9.getText();
+//                case 4 -> button3.getText() + button5.getText() + button7.getText();
+//                case 5 -> button1.getText() + button4.getText() + button7.getText();
+//                case 6 -> button2.getText() + button5.getText() + button8.getText();
+//                case 7 -> button3.getText() + button6.getText() + button9.getText();
+//                default -> null;
+//            };
+//
+//            if (line.equals("XXX")) {
+//                message.setText("Win X");
+//                buttons.forEach(button -> button.setDisable(true));
+//            } else if (line.equals("OOO")) {
+//                message.setText("Win O");
+//                buttons.forEach(button -> button.setDisable(true));
+//            }
+//        }
+//    }
 }
