@@ -29,6 +29,7 @@ public abstract class ControllerMainPlay implements Initializable {
                 button5, button6, button7, button8, button9));
         restart.getStyleClass().add("hover");
         buttons.forEach(button -> {
+            setMessageStep();
             style.setButtonHoverDisabled(button);
             setupButton(button);
             button.setFocusTraversable(false);
@@ -39,7 +40,7 @@ public abstract class ControllerMainPlay implements Initializable {
     protected void newGame() {
         restart.setOnMouseClicked(mouseEvent -> {
             buttons.forEach(this::resetButton);
-            message.setText("Tic-Tac-Toe");
+            setMessageStep();
         });
     }
 
@@ -50,6 +51,8 @@ public abstract class ControllerMainPlay implements Initializable {
     }
 
     protected abstract void setupButton(Button button);
+
+    protected abstract void setMessageStep();
 
     protected void checkIfGameIsOver() {
         for (int a = 0; a < 8; a++) {
