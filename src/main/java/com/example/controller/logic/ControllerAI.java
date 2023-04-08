@@ -2,7 +2,10 @@ package com.example.controller.logic;
 
 import com.example.playAI.Minimax;
 import com.example.playAI.State;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -13,6 +16,8 @@ public class ControllerAI extends ControllerMainPlay {
 
     private final String playerChoice;
     private final String aiChoice;
+
+    private boolean isBotTurn = false;
 
     public ControllerAI(String playerChoice, String aiChoice) {
         this.playerChoice = playerChoice;
@@ -31,17 +36,36 @@ public class ControllerAI extends ControllerMainPlay {
     @Override
     protected void setupButton(Button button) {
         button.setOnMouseClicked(mouseEvent -> {
-            button.setText(playerChoice);
-            style.setButtonStyle(button, playerChoice);
-            button.setDisable(true);
-            makeAIMove();
-            checkIfGameIsOver();
+            if (!isBotTurn) {
+                button.setText(playerChoice);
+                style.setButtonStyle(button, playerChoice);
+                button.setDisable(true);
+                isBotTurn = true;
+                makeAIMoveAfterDelay();
+            }
         });
+    }
+
+    private void makeAIMoveAfterDelay() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                makeAIMove();
+                checkIfGameIsOver();
+                isBotTurn = false;
+            });
+        }).start();
     }
 
     private void makeAIMove() {
         int move = MINIMAX.minimax(getBoardState());
-        pickButton(move);
+        if (move != -1) {
+            pickButton(move);
+        }
     }
 
     private void pickButton(int index) {
