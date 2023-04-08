@@ -1,8 +1,5 @@
 package com.example.playAI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class Minimax {
@@ -14,14 +11,21 @@ public class Minimax {
             movesList.add(minValue(states));
         }
 
-        int bestIndex = getBestIndex(movesList);
-        return possibleMoves.get(bestIndex).getPosition();
+        if (getBestIndex(movesList) == -1) {
+            return -1;
+        } else {
+            return possibleMoves.get(getBestIndex(movesList)).getPosition();
+        }
     }
 
     private int getBestIndex(ArrayList<Integer> movesList) {
-        return IntStream.range(0, movesList.size())
-                .reduce((a, b) -> movesList.get(a) > movesList.get(b) ? a : b)
-                .orElseThrow();
+        OptionalInt result = IntStream.range(0, movesList.size())
+                .reduce((a, b) -> movesList.get(a) > movesList.get(b) ? a : b);
+        if (result.isPresent()) {
+            return result.getAsInt();
+        } else {
+            return -1;
+        }
     }
 
     private int minValue(State state) {
