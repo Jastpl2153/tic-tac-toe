@@ -9,10 +9,20 @@ public class ControllerTwoPlayer extends ControllerMainPlay {
     protected void setupButton(Button button) {
         button.setOnMouseClicked(mouseEvent -> {
             setPlayerSymbol(button);
+            setMessageStep();
             style.setButtonStyle(button, button.getText());
             button.setDisable(true);
             checkIfGameIsOver();
         });
+    }
+
+    @Override
+    protected void setMessageStep() {
+        if (playerTurn == 0) {
+            message.setText("Step X");
+        } else if(playerTurn == 1) {
+            message.setText("Step O");
+        }
     }
 
     private void setPlayerSymbol(Button button){

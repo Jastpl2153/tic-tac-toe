@@ -2,10 +2,8 @@ package com.example.controller.logic;
 
 import com.example.playAI.Minimax;
 import com.example.playAI.State;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -18,6 +16,7 @@ public class ControllerAI extends ControllerMainPlay {
     private final String aiChoice;
 
     private boolean isBotTurn = false;
+    private int playerTurn = 0;
 
     public ControllerAI(String playerChoice, String aiChoice) {
         this.playerChoice = playerChoice;
@@ -41,9 +40,20 @@ public class ControllerAI extends ControllerMainPlay {
                 style.setButtonStyle(button, playerChoice);
                 button.setDisable(true);
                 isBotTurn = true;
+                setMessageStep();
                 makeAIMoveAfterDelay();
             }
         });
+    }
+
+    @Override
+    protected void setMessageStep() {
+        if (message.getText().equals("You won!") || message.getText().equals("AI won!")) {
+            return;
+        }
+
+        String text = isBotTurn ? "Step AI" : "Step player";
+        message.setText(text);
     }
 
     private void makeAIMoveAfterDelay() {
@@ -57,6 +67,7 @@ public class ControllerAI extends ControllerMainPlay {
                 makeAIMove();
                 checkIfGameIsOver();
                 isBotTurn = false;
+                setMessageStep();
             });
         }).start();
     }
