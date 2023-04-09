@@ -2,6 +2,9 @@ package com.example.controller.logic;
 
 import javafx.scene.control.Button;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ControllerTwoPlayer extends ControllerMainPlay {
     private int playerTurn = 0;
 
@@ -36,11 +39,14 @@ public class ControllerTwoPlayer extends ControllerMainPlay {
     }
 
     @Override
-    protected void checkLine(String line) {
+    protected void checkLine(List<Button> indexButton) {
+        String line = indexButton.stream()
+                .map(Button::getText)
+                .collect(Collectors.joining());
         if (line.equals("XXX")) {
-            gameOver("Win X!");
+            gameOver("Win X!", indexButton);
         } else if (line.equals("OOO")) {
-            gameOver("Win O!");
+            gameOver("Win O!", indexButton);
         }
     }
 }

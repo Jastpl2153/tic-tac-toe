@@ -9,9 +9,13 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public abstract class ControllerMainPlay implements Initializable {
+    private static final int[][] LINE_INDEXES = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+            {0, 4, 8}, {2, 4, 6}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}};
     @FXML
     protected Button restart;
     @FXML
@@ -53,29 +57,20 @@ public abstract class ControllerMainPlay implements Initializable {
     protected abstract void setupButton(Button button);
 
     protected abstract void setMessageStep();
-
     protected void checkIfGameIsOver() {
-        for (int a = 0; a < 8; a++) {
-            String line = switch (a) {
-                case 0 -> button1.getText() + button2.getText() + button3.getText();
-                case 1 -> button4.getText() + button5.getText() + button6.getText();
-                case 2 -> button7.getText() + button8.getText() + button9.getText();
-                case 3 -> button1.getText() + button5.getText() + button9.getText();
-                case 4 -> button3.getText() + button5.getText() + button7.getText();
-                case 5 -> button1.getText() + button4.getText() + button7.getText();
-                case 6 -> button2.getText() + button5.getText() + button8.getText();
-                case 7 -> button3.getText() + button6.getText() + button9.getText();
-                default -> null;
-            };
-
-            checkLine(line);
+        for (int[] lineIndexes : LINE_INDEXES) {
+            List<Button> indexButton = Arrays.stream(lineIndexes)
+                    .mapToObj(buttons::get)
+                    .collect(Collectors.toList());
+            checkLine(indexButton);
         }
     }
 
-    protected abstract void checkLine(String line);
+    protected abstract void checkLine(List<Button> indexButton);
 
-    protected void gameOver(String messageText) {
+    protected void gameOver(String messageText, List<Button> indexButton) {
         message.setText(messageText);
         buttons.forEach(button -> button.setDisable(true));
+        indexButton.forEach(button -> style.setButtonWinner(button));
     }
 }
