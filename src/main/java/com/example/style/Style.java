@@ -12,10 +12,14 @@ public class Style {
     }
 
     public void resetChoice(Button button) {
-        button.getStyleClass().removeAll("button-o", "button-x");
+        button.getStyleClass().removeAll("button-o", "button-x", "winner");
     }
 
     public void setButtonHoverDisabled(Button button) {
         button.getStyleClass().addAll("hover","disabled");
+    }
+
+    public void setButtonWinner(Button button){
+        button.getStyleClass().add("winner");
     }
 }

@@ -5,7 +5,9 @@ import com.example.playAI.State;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ControllerAI extends ControllerMainPlay {
     private final Random random = new Random();
@@ -94,11 +96,14 @@ public class ControllerAI extends ControllerMainPlay {
     }
 
     @Override
-    protected void checkLine(String line) {
+    protected void checkLine(List<Button> indexButton) {
+        String line = indexButton.stream()
+                .map(Button::getText)
+                .collect(Collectors.joining());
         if (line.equals("XXX") && aiChoice.equals("X") || line.equals("OOO") && aiChoice.equals("O")) {
-            gameOver("AI won!");
+            gameOver("AI won!", indexButton);
         } else if (line.equals("XXX") && playerChoice.equals("X") || line.equals("OOO") && playerChoice.equals("O")) {
-            gameOver("You won!");
+            gameOver("You won!", indexButton);
         }
     }
 }
