@@ -40,13 +40,17 @@ public class ControllerTwoPlayer extends ControllerMainPlay {
     }
 
     @Override
-    protected void checkLine(List<Button> indexButton, String line) {
+    protected boolean checkLine(List<Button> indexButton, String line) {
         if (line.equals("XXX")) {
             gameOver("Win X!", indexButton);
+            return true;
         } else if (line.equals("OOO")) {
             gameOver("Win O!", indexButton);
+            return true;
         } else if (isDraw()){
             gameOver("Draw", new ArrayList<>());
+            return true;
         }
+        return false;
     }
 }
