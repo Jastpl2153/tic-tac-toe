@@ -31,7 +31,7 @@ public class ControllerAI extends ControllerMainPlay {
         restart.setOnMouseClicked(mouseEvent -> {
             buttons.forEach(this::resetButton);
             message.setText("Tic-Tac-Toe");
-            pickButton(random.nextInt(9));
+            makeAIMoveAfterDelay();
         });
     }
 
@@ -42,9 +42,11 @@ public class ControllerAI extends ControllerMainPlay {
                 button.setText(playerChoice);
                 style.setButtonStyle(button, playerChoice);
                 button.setDisable(true);
-                isBotTurn = true;
-                setMessageStep();
-                makeAIMoveAfterDelay();
+                if (!checkIfGameIsOver()) {
+                    isBotTurn = true;
+                    setMessageStep();
+                    makeAIMoveAfterDelay();
+                }
             }
         });
     }
@@ -77,8 +79,10 @@ public class ControllerAI extends ControllerMainPlay {
 
     private void makeAIMove() {
         int move = MINIMAX.minimax(getBoardState());
-        if (move != -1) {
+        if (move >= 0) {
             pickButton(move);
+        } else if (move == -2){
+            pickButton(random.nextInt(9));
         }
     }
 
@@ -97,13 +101,17 @@ public class ControllerAI extends ControllerMainPlay {
     }
 
     @Override
-    protected void checkLine(List<Button> indexButton, String line) {
+    protected boolean checkLine(List<Button> indexButton, String line) {
         if (line.equals("XXX") && aiChoice.equals("X") || line.equals("OOO") && aiChoice.equals("O")) {
             gameOver("AI won!", indexButton);
+            return true;
         } else if (line.equals("XXX") && playerChoice.equals("X") || line.equals("OOO") && playerChoice.equals("O")) {
             gameOver("You won!", indexButton);
+            return true;
         } else if (isDraw()) {
             gameOver("Draw", new ArrayList<>());
+            return true;
         }
+        return false;
     }
 }

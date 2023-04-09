@@ -57,7 +57,7 @@ public abstract class ControllerMainPlay implements Initializable {
     protected abstract void setupButton(Button button);
 
     protected abstract void setMessageStep();
-    protected void checkIfGameIsOver() {
+    protected boolean checkIfGameIsOver() {
         for (int[] lineIndexes : LINE_INDEXES) {
             List<Button> indexButton = Arrays.stream(lineIndexes)
                     .mapToObj(buttons::get)
@@ -65,11 +65,14 @@ public abstract class ControllerMainPlay implements Initializable {
             String line = indexButton.stream()
                     .map(Button::getText)
                     .collect(Collectors.joining());
-            checkLine(indexButton, line);
+            if (checkLine(indexButton, line)){
+                return true;
+            }
         }
+        return false;
     }
 
-    protected abstract void checkLine(List<Button> indexButton, String line);
+    protected abstract boolean checkLine(List<Button> indexButton, String line);
 
     protected void gameOver(String messageText, List<Button> indexButton) {
         message.setText(messageText);
