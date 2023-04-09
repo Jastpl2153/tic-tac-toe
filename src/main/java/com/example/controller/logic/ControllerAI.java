@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ControllerAI extends ControllerMainPlay {
     private final Random random = new Random();
@@ -19,7 +18,6 @@ public class ControllerAI extends ControllerMainPlay {
     private final String aiChoice;
 
     private boolean isBotTurn = false;
-    private int playerTurn = 0;
 
     public ControllerAI(String playerChoice, String aiChoice) {
         this.playerChoice = playerChoice;

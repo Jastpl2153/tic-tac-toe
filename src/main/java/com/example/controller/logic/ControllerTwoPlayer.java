@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ControllerTwoPlayer extends ControllerMainPlay {
     private int playerTurn = 0;
