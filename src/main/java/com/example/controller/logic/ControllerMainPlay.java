@@ -62,15 +62,23 @@ public abstract class ControllerMainPlay implements Initializable {
             List<Button> indexButton = Arrays.stream(lineIndexes)
                     .mapToObj(buttons::get)
                     .collect(Collectors.toList());
-            checkLine(indexButton);
+            String line = indexButton.stream()
+                    .map(Button::getText)
+                    .collect(Collectors.joining());
+            checkLine(indexButton, line);
         }
     }
 
-    protected abstract void checkLine(List<Button> indexButton);
+    protected abstract void checkLine(List<Button> indexButton, String line);
 
     protected void gameOver(String messageText, List<Button> indexButton) {
         message.setText(messageText);
         buttons.forEach(button -> button.setDisable(true));
         indexButton.forEach(button -> style.setButtonWinner(button));
+    }
+
+    protected boolean isDraw() {
+        return buttons.stream()
+                .noneMatch(button -> button.getText().isEmpty());
     }
 }
