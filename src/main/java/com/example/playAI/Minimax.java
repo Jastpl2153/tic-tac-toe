@@ -7,6 +7,13 @@ public class Minimax {
         ArrayList<State> possibleMoves = generatePossibleMoves(state);
         ArrayList<Integer> movesList = new ArrayList<>();
 
+        byte count = (byte) Arrays.stream(state.getState())
+                .filter(String::isEmpty)
+                .count();
+        if (count == 9) {
+            return -2;
+        }
+
         for (State states : possibleMoves) {
             movesList.add(minValue(states));
         }
@@ -19,13 +26,9 @@ public class Minimax {
     }
 
     private int getBestIndex(ArrayList<Integer> movesList) {
-        OptionalInt result = IntStream.range(0, movesList.size())
-                .reduce((a, b) -> movesList.get(a) > movesList.get(b) ? a : b);
-        if (result.isPresent()) {
-            return result.getAsInt();
-        } else {
-            return -1;
-        }
+        return IntStream.range(0, movesList.size())
+                .reduce((a, b) -> movesList.get(a) > movesList.get(b) ? a : b)
+                .orElseGet(() -> -1);
     }
 
     private int minValue(State state) {
