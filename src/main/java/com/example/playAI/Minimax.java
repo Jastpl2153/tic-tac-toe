@@ -3,14 +3,19 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class Minimax {
+    private final int step;
+    private final String aiChoice;
+
+    public Minimax(int step, String aiChoice) {
+        this.step = step;
+        this.aiChoice = aiChoice;
+    }
+
     public int minimax(State state) {
         ArrayList<State> possibleMoves = generatePossibleMoves(state);
         ArrayList<Integer> movesList = new ArrayList<>();
 
-        byte count = (byte) Arrays.stream(state.getState())
-                .filter(String::isEmpty)
-                .count();
-        if (count == 9) {
+        if (isFirstStepAI(state)){
             return -2;
         }
 
@@ -28,7 +33,7 @@ public class Minimax {
     private int getBestIndex(ArrayList<Integer> movesList) {
         return IntStream.range(0, movesList.size())
                 .reduce((a, b) -> movesList.get(a) > movesList.get(b) ? a : b)
-                .orElseGet(() -> -1);
+                .orElse(-1);
     }
 
     private int minValue(State state) {
@@ -41,7 +46,6 @@ public class Minimax {
                 .orElseThrow();
     }
 
-
     private int maxValue(State state) {
         if (isGameOver(state)) {
             return checkWinningState(state);
@@ -51,7 +55,6 @@ public class Minimax {
                 .max()
                 .orElse((int) -Double.POSITIVE_INFINITY);
     }
-
 
     private boolean isGameOver(State state) {
         return hasWinner(state) || getFilledCells(state);
@@ -71,6 +74,41 @@ public class Minimax {
         return Arrays.stream(state.getState()).noneMatch(s -> s.equals(""));
     }
 
+    private ArrayList<State> generatePossibleMoves(State state) {
+        ArrayList<State> possibleMoves = new ArrayList<>();
+        String player;
+        if (step == 0) {
+            player = calculatePlayerTurnOne(state, aiChoice);
+        } else {
+            player = calculatePlayerTurnTwo(state, aiChoice);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (!state.getStateIndex(i).equals("X") && !state.getStateIndex(i).equals("O")) {
+                String[] newState = state.getState().clone();
+                newState[i] = player;
+                possibleMoves.add(new State(i, newState));
+            }
+        }
+        return possibleMoves;
+    }
+
+    private String calculatePlayerTurnOne(State state, String aiChoice) {
+        int xMoves = Collections.frequency(List.of(state.getState()), "X");
+        int oMoves = Collections.frequency(List.of(state.getState()), "O");
+        return (aiChoice.equals("X") && xMoves <= oMoves)
+                || (aiChoice.equals("O") && oMoves <= xMoves)
+                ? aiChoice : (aiChoice.equals("X") ? "O" : "X");
+    }
+
+    private String calculatePlayerTurnTwo(State state, String aiChoice) {
+        int xMoves = Collections.frequency(List.of(state.getState()), "X");
+        int oMoves = Collections.frequency(List.of(state.getState()), "O");
+        return (aiChoice.equals("X") && xMoves < oMoves)
+                || (aiChoice.equals("O") && oMoves < xMoves)
+                ? aiChoice : (aiChoice.equals("X") ? "O" : "X");
+    }
+
     private String checkState(State state, int a) {
         return switch (a) {
             case 0 -> state.getStateIndex(0) + state.getStateIndex(1) + state.getStateIndex(2);
@@ -85,40 +123,35 @@ public class Minimax {
         };
     }
 
-    private ArrayList<State> generatePossibleMoves(State state) {
-        ArrayList<State> possibleMoves = new ArrayList<>();
-        String player = calculatePlayerTurn(state);
-
-        for (int i = 0; i < 9; i++) {
-            if (!state.getStateIndex(i).equals("X") && !state.getStateIndex(i).equals("O")) {
-                String[] newState = state.getState().clone();
-                newState[i] = player;
-                possibleMoves.add(new State(i, newState));
-            }
-        }
-        return possibleMoves;
-    }
-
-    private String calculatePlayerTurn(State state) {
-        int xMoves = Collections.frequency(List.of(state.getState()), "X");
-        int oMoves = Collections.frequency(List.of(state.getState()), "O");
-        return (xMoves <= oMoves) ? "X" : "O";
-    }
-
     private int checkWinningState(State state) {
         for (int i = 0; i < 8; i++) {
             String line = checkState(state, i);
-            switch (line) {
-                case "XXX" -> {
+            if (aiChoice.equals("X")) {
+                // Если строка состоит только из символов "X", то ИИ победил
+                if (line.equals("XXX")) {
                     return 1;
-                }
-                case "OOO" -> {
+                    // Если строка состоит только из символов "O", то игрок победил
+                } else if (line.equals("OOO")) {
                     return -1;
                 }
-                default -> {
+            } else if (aiChoice.equals("O")) {
+                // Если строка состоит только из символов "O", то ИИ победил
+                if (line.equals("OOO")) {
+                    return 1;
+                    // Если строка состоит только из символов "X", то игрок победил
+                } else if (line.equals("XXX")) {
+                    return -1;
                 }
             }
         }
+        // Если ни одна из строк не победительская, то возвращаем 0
         return 0;
+    }
+
+    private boolean isFirstStepAI(State state){
+        byte count = (byte) Arrays.stream(state.getState())
+                .filter(String::isEmpty)
+                .count();
+        return count == 9 || count == 8;
     }
 }

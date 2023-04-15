@@ -48,7 +48,7 @@ public class ControllerTwoPlayer extends ControllerMainPlay {
             return true;
         } else if (isDraw()){
             gameOver("Draw", new ArrayList<>());
-            return true;
+            return false;
         }
         return false;
     }

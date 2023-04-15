@@ -5,19 +5,23 @@ import com.example.playAI.State;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class ControllerAI extends ControllerMainPlay {
+    private String aiChoice;
+    private int firstStep;
     private final Random random = new Random();
 
-    private final Minimax MINIMAX = new Minimax();
+
 
     private final String playerChoice;
-    private final String aiChoice;
 
     private boolean isBotTurn = false;
+
 
     public ControllerAI(String playerChoice, String aiChoice) {
         this.playerChoice = playerChoice;
@@ -25,11 +29,17 @@ public class ControllerAI extends ControllerMainPlay {
     }
 
     @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        firstStep();
+        super.initialize(url, resourceBundle);
+    }
+
+    @Override
     protected void newGame() {
         restart.setOnMouseClicked(mouseEvent -> {
             buttons.forEach(this::resetButton);
             message.setText("Tic-Tac-Toe");
-            makeAIMoveAfterDelay();
+            firstStep();
         });
     }
 
@@ -47,6 +57,17 @@ public class ControllerAI extends ControllerMainPlay {
                 }
             }
         });
+    }
+
+    protected void firstStep() {
+        firstStep = random.nextInt(2);
+        if (firstStep == 0){
+            isBotTurn = true;
+            setMessageStep();
+            makeAIMoveAfterDelay();
+        } else {
+            setMessageStep();
+        }
     }
 
     @Override
@@ -76,6 +97,7 @@ public class ControllerAI extends ControllerMainPlay {
     }
 
     private void makeAIMove() {
+        Minimax MINIMAX = new Minimax(firstStep, aiChoice);
         int move = MINIMAX.minimax(getBoardState());
         if (move >= 0) {
             pickButton(move);
@@ -100,15 +122,15 @@ public class ControllerAI extends ControllerMainPlay {
 
     @Override
     protected boolean checkLine(List<Button> indexButton, String line) {
-        if (line.equals("XXX") && aiChoice.equals("X") || line.equals("OOO") && aiChoice.equals("O")) {
+        if ((line.equals("XXX") && aiChoice.equals("X")) || (line.equals("OOO") && aiChoice.equals("O"))) {
             gameOver("AI won!", indexButton);
             return true;
-        } else if (line.equals("XXX") && playerChoice.equals("X") || line.equals("OOO") && playerChoice.equals("O")) {
+        } else if ((line.equals("XXX") && playerChoice.equals("X")) || (line.equals("OOO") && playerChoice.equals("O"))) {
             gameOver("You won!", indexButton);
             return true;
         } else if (isDraw()) {
             gameOver("Draw", new ArrayList<>());
-            return true;
+            return false;
         }
         return false;
     }
