@@ -15,13 +15,8 @@ public class ControllerAI extends ControllerMainPlay {
     private String aiChoice;
     private int firstStep;
     private final Random random = new Random();
-
-
-
     private final String playerChoice;
-
     private boolean isBotTurn = false;
-
 
     public ControllerAI(String playerChoice, String aiChoice) {
         this.playerChoice = playerChoice;
@@ -102,8 +97,18 @@ public class ControllerAI extends ControllerMainPlay {
         if (move >= 0) {
             pickButton(move);
         } else if (move == -2){
-            pickButton(random.nextInt(9));
+            pickButton(pickRandom());
         }
+    }
+
+    private int pickRandom() {
+        int pick = random.nextInt(9);
+        if (buttons.get(pick).getText().isEmpty()) {
+            return pick;
+        } else {
+            pickRandom();
+        }
+        return 0;
     }
 
     private void pickButton(int index) {
