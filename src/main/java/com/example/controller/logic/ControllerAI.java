@@ -45,7 +45,7 @@ public class ControllerAI extends ControllerMainPlay {
                 button.setText(playerChoice);
                 style.setButtonStyle(button, playerChoice);
                 button.setDisable(true);
-                if (!checkIfGameIsOver()) {
+                if (!checkIfGameIsOver() && !isDraw()) {
                     isBotTurn = true;
                     setMessageStep();
                     makeAIMoveAfterDelay();
@@ -67,12 +67,17 @@ public class ControllerAI extends ControllerMainPlay {
 
     @Override
     protected void setMessageStep() {
-        if (message.getText().equals("You won!") || message.getText().equals("AI won!")) {
+        if (isGameOver()) {
             return;
         }
 
         String text = isBotTurn ? "Step AI" : "Step player";
         message.setText(text);
+    }
+
+    private boolean isGameOver() {
+        String gameResult = message.getText();
+        return gameResult.equals("You won!") || gameResult.equals("AI won!");
     }
 
     private void makeAIMoveAfterDelay() {
@@ -127,11 +132,11 @@ public class ControllerAI extends ControllerMainPlay {
 
     @Override
     protected boolean checkLine(List<Button> indexButton, String line) {
-        if ((line.equals("XXX") && aiChoice.equals("X")) || (line.equals("OOO") && aiChoice.equals("O"))) {
+        if (isWin(aiChoice, line)) {
             gameOver("AI won!", indexButton);
             countWin(winPlayerSecondCount);
             return true;
-        } else if ((line.equals("XXX") && playerChoice.equals("X")) || (line.equals("OOO") && playerChoice.equals("O"))) {
+        } else if (isWin(playerChoice, line)) {
             gameOver("You won!", indexButton);
             countWin(winPlayerFirstCount);
             return true;
@@ -140,5 +145,9 @@ public class ControllerAI extends ControllerMainPlay {
             return false;
         }
         return false;
+    }
+
+    private boolean isWin(String marker, String line) {
+        return line.equals(marker + marker + marker);
     }
 }
