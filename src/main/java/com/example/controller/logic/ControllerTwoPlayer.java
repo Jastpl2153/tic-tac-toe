@@ -42,9 +42,11 @@ public class ControllerTwoPlayer extends ControllerMainPlay {
     protected boolean checkLine(List<Button> indexButton, String line) {
         if (line.equals("XXX")) {
             gameOver("Win X!", indexButton);
+            countWin(winPlayerFirstCount);
             return true;
         } else if (line.equals("OOO")) {
             gameOver("Win O!", indexButton);
+            countWin(winPlayerSecondCount);
             return true;
         } else if (isDraw()){
             gameOver("Draw", new ArrayList<>());
