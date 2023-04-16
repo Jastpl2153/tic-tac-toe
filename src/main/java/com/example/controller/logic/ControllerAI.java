@@ -45,7 +45,7 @@ public class ControllerAI extends ControllerMainPlay {
                 button.setText(playerChoice);
                 style.setButtonStyle(button, playerChoice);
                 button.setDisable(true);
-                if (!checkIfGameIsOver()) {
+                if (!checkIfGameIsOver() && !isDraw()) {
                     isBotTurn = true;
                     setMessageStep();
                     makeAIMoveAfterDelay();
