@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public abstract class ControllerMainPlay implements Initializable {
     protected ArrayList<Button> buttons;
 
     protected Style style = new Style();
+
+    @FXML
+    protected Text winPlayerFirstCount;
+    @FXML
+    protected Text winPlayerSecondCount;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,5 +89,11 @@ public abstract class ControllerMainPlay implements Initializable {
     protected boolean isDraw() {
         return buttons.stream()
                 .noneMatch(button -> button.getText().isEmpty());
+    }
+
+    protected void countWin(Text winText) {
+        int win = Integer.parseInt(winText.getText());
+        win++;
+        winText.setText(String.valueOf(win));
     }
 }

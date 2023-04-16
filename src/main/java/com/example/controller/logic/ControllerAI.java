@@ -129,9 +129,11 @@ public class ControllerAI extends ControllerMainPlay {
     protected boolean checkLine(List<Button> indexButton, String line) {
         if ((line.equals("XXX") && aiChoice.equals("X")) || (line.equals("OOO") && aiChoice.equals("O"))) {
             gameOver("AI won!", indexButton);
+            countWin(winPlayerSecondCount);
             return true;
         } else if ((line.equals("XXX") && playerChoice.equals("X")) || (line.equals("OOO") && playerChoice.equals("O"))) {
             gameOver("You won!", indexButton);
+            countWin(winPlayerFirstCount);
             return true;
         } else if (isDraw()) {
             gameOver("Draw", new ArrayList<>());

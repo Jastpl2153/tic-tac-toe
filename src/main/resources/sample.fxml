@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <SplitPane dividerPositions="0.23644578313253015" layoutX="70.0" layoutY="55.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -17,6 +18,16 @@
             <font>
                <Font name="Bernard MT Condensed" size="36.0" />
             </font></Label>
+         <Text fx:id="winPlayerFirstCount" fill="#fffbfb" layoutX="14.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+            <font>
+               <Font name="Bernard MT Condensed" size="18.0" />
+            </font>
+         </Text>
+         <Text fx:id="winPlayerSecondCount" fill="#fffbfb" layoutX="275.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <font>
+               <Font name="Bernard MT Condensed" size="18.0" />
+            </font>
+         </Text>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0">
             <FlowPane alignment="BASELINE_CENTER" columnHalignment="CENTER" prefHeight="292.0" prefWidth="298.4" style="-fx-background-color: linear-gradient(to left, rgb(252, 70, 107, 0.8), rgb(63, 94, 251, 0.8));" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
